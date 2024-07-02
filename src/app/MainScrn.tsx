@@ -4,6 +4,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 
 import questions from "../questions";
 import Card from "../Components/Card";
+import Button from "../Components/Button";
 const question = questions[0];
 
 const MainScrn = () => {
@@ -25,19 +26,14 @@ const MainScrn = () => {
           </Card>
         )}
 
-        <Pressable
-          onPress={() => console.warn("PRESSED")}
-          onLongPress={() => console.warn("LONG PRESS")}
-          style={styles.button}
-        >
-          <Text style={styles.buttonTxt}>Footer</Text>
-          <FontAwesome6
-            name="arrow-right-long"
-            size={16}
-            color="#000"
-            style={styles.buttonIcon}
-          />
-        </Pressable>
+        <Button
+          onPress={() => console.warn("Next Button Pressed")}
+          onLongPress={() => console.warn("Long Pressed")}
+          title={"Next"}
+          rightIcon={
+            <FontAwesome6 name="arrow-right-long" size={16} color="#000" />
+          }
+        />
       </View>
     </SafeAreaView>
   );
@@ -64,21 +60,5 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "center",
     marginTop: 15,
-  },
-  button: {
-    padding: 20,
-    borderRadius: 100,
-    backgroundColor: "#ffbb01",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonTxt: {
-    fontSize: 16,
-    fontWeight: "500",
-    letterSpacing: 1.5,
-  },
-  buttonIcon: {
-    position: "absolute",
-    right: 20,
   },
 });
