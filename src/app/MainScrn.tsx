@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
 import QuizCard from "../Components/QuizCard";
-import { FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome6 } from "@expo/vector-icons";
 
-import questions from '../questions';
+import questions from "../questions";
+import Card from "../Components/Card";
 const question = questions[0];
 
 const MainScrn = () => {
@@ -12,10 +13,17 @@ const MainScrn = () => {
         <View>
           <Text style={styles.title}>Question 1/5</Text>
         </View>
-        <View>
-          <QuizCard inquiry={question} />
-          <Text style={styles.time}>20 Sec</Text>
-        </View>
+        {question ? (
+          <View>
+            <QuizCard inquiry={question} />
+            <Text style={styles.time}>20 Sec</Text>
+          </View>
+        ) : (
+          <Card title="Great Job">
+            <Text>Correct: 3/5</Text>
+            <Text>Best Score: 10</Text>
+          </Card>
+        )}
 
         <Pressable
           onPress={() => console.warn("PRESSED")}

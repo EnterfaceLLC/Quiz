@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import Answer from "./Answer";
 import { Inquiry } from "../types";
+import Card from "./Card";
 
 type QuestionProps = {
   inquiry: Inquiry;
@@ -14,9 +15,8 @@ const QuizCard = ({ inquiry }: QuestionProps) => {
   };
 
   return (
-    <View style={styles.cardBG}>
-      <Text style={styles.text}>{inquiry.title}</Text>
-      <View style={styles.answer}>
+    <Card title={inquiry.title}>
+      <View style={{ gap: 10 }}>
         {inquiry.options.map((option) => (
           <Answer
             key={option}
@@ -26,35 +26,8 @@ const QuizCard = ({ inquiry }: QuestionProps) => {
           />
         ))}
       </View>
-    </View>
+    </Card>
   );
 };
 
 export default QuizCard;
-
-const styles = StyleSheet.create({
-  cardBG: {
-    gap: 20,
-    padding: 20,
-    borderRadius: 20,
-    paddingVertical: 40,
-    backgroundColor: "#b0bdaf",
-
-    //* Shadows //
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "500",
-  },
-  answer: {
-    gap: 10,
-  },
-});
