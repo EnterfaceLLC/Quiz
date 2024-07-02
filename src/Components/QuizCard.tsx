@@ -1,15 +1,30 @@
 import { View, Text, StyleSheet } from "react-native";
 import Answer from "./Answer";
+import { Inquiry } from "../types";
 
-const QuizCard = () => {
+type QuestionProps = {
+  inquiry: Inquiry;
+};
+
+const QuizCard = ({ inquiry }: QuestionProps) => {
+  const selectedOpt = inquiry.options[1];
+
+  const PressedOpt = (inquiry: string) => {
+    console.warn("Selected:", inquiry);
+  };
+
   return (
     <View style={styles.cardBG}>
-      <Text style={styles.text}>Who is .Enterface?</Text>
+      <Text style={styles.text}>{inquiry.title}</Text>
       <View style={styles.answer}>
-        <Answer />
-        <Answer />
-        <Answer />
-        <Answer />
+        {inquiry.options.map((option) => (
+          <Answer
+            key={option}
+            options={option}
+            isSelected={option === selectedOpt}
+            onPressed={() => PressedOpt(option)}
+          />
+        ))}
       </View>
     </View>
   );

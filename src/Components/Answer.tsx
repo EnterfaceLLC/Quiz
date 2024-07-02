@@ -1,10 +1,22 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-const Answer = () => {
+type AnswerOptionProps = {
+  options: string;
+  isSelected?: boolean;
+  onPressed: () => void;
+};
+
+const Answer = ({ options, isSelected, onPressed }: AnswerOptionProps) => {
   return (
-    <View style={styles.main}>
-      <Text>Answer Option</Text>
-    </View>
+    <Pressable
+      onPress={onPressed}
+      style={[
+        styles.main,
+        isSelected && { backgroundColor: "teal", borderColor: "teal" },
+      ]}
+    >
+      <Text>{options}</Text>
+    </Pressable>
   );
 };
 
