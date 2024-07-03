@@ -1,30 +1,26 @@
-import { View, Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import QuizCard from "../Components/QuizCard";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-import questions from "../questions";
+// import questions from "../questions";
 import Card from "../Components/Card";
 import Button from "../Components/Button";
 
 import { useQuizContext } from "../Provider/QuizProvider";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useTimer } from "../Hooks/useTimer";
 
 const MainScrn = () => {
   const { question, questionI, onNext, score, totalQ, bestScore } =
     useQuizContext();
 
-  const [time, setTime] = useState(20);
+  const { time, startTimer, clearTimer } = useTimer(20);
 
   useEffect(() => {
-    //Start countdown//
-    setTime(20);
-    const interval = setInterval(() => {
-      setTime((t) => t - 1);
-    }, 1000);
+    startTimer();
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearTimer();
   }, [question]);
 
   useEffect(() => {
