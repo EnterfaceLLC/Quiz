@@ -7,11 +7,31 @@ import Card from "../Components/Card";
 import Button from "../Components/Button";
 
 import { useQuizContext } from "../Provider/QuizProvider";
+import { useEffect, useState } from "react";
 
 const MainScrn = () => {
-  // const [questionI, setQuestionI] = useState(0);
-  // const question = questions[questionI];
-  const { question, questionI, onNext, score, totalQ } = useQuizContext();
+  const { question, questionI, onNext, score, totalQ, bestScore } =
+    useQuizContext();
+
+  const [time, setTime] = useState(20);
+
+  useEffect(() => {
+    //Start countdown//
+    setTime(20);
+    const interval = setInterval(() => {
+      setTime((t) => t - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [question]);
+
+  useEffect(() => {
+    if (time <= 0) {
+      onNext();
+    }
+  }, [time]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -24,14 +44,14 @@ const MainScrn = () => {
         {question ? (
           <View>
             <QuizCard inquiry={question} />
-            <Text style={styles.time}>20 Sec</Text>
+            <Text style={styles.time}>{time}</Text>
           </View>
         ) : (
           <Card title="Great Job">
             <Text>
               Correct: {score}/{totalQ}
             </Text>
-            <Text>Best Score: 10</Text>
+            <Text>Best Score: {bestScore}</Text>
           </Card>
         )}
 

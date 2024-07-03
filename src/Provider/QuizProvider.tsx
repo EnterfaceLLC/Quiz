@@ -3,6 +3,7 @@ import React, {
   PropsWithChildren,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import questions from "../questions";
@@ -16,6 +17,7 @@ type QuizContext = {
   setSelectedOpt: (newOption: string) => void;
   score: number;
   totalQ: number;
+  bestScore: number;
 };
 
 const QuizContext = createContext<QuizContext>({
@@ -24,6 +26,7 @@ const QuizContext = createContext<QuizContext>({
   setSelectedOpt: () => {},
   score: 0,
   totalQ: 0,
+  bestScore: 0,
 });
 
 const QuizProvider = ({ children }: PropsWithChildren) => {
@@ -32,8 +35,15 @@ const QuizProvider = ({ children }: PropsWithChildren) => {
 
   const [selectedOpt, setSelectedOpt] = useState<string | undefined>();
   const [score, setScore] = useState(0);
-
+  const [bestScore, setBestScore] = useState(0);
   const isFinished = questionI >= questions.length;
+
+  useEffect(() => {
+    //check for new best score//
+    if (isFinished === true && score > bestScore) {
+      setBestScore(score);
+    }
+  }, [isFinished]);
 
   const reset = () => {
     setQuestionI(0), setSelectedOpt(""), setScore(0);
@@ -62,6 +72,7 @@ const QuizProvider = ({ children }: PropsWithChildren) => {
         setSelectedOpt,
         score,
         totalQ: questions.length,
+        bestScore,
       }}
     >
       {children}
