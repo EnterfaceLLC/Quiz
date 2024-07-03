@@ -5,21 +5,21 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import questions from "../questions";
 import Card from "../Components/Card";
 import Button from "../Components/Button";
-import { useState } from "react";
+
+import { useQuizContext } from "../Provider/QuizProvider";
 
 const MainScrn = () => {
-  const [questionI, setQuestionI] = useState(0);
-  const question = questions[questionI];
-
-  const onNext = () => {
-    setQuestionI((currentValue) => currentValue + 1);
-  };
+  // const [questionI, setQuestionI] = useState(0);
+  // const question = questions[questionI];
+  const { question, questionI, onNext, score, totalQ } = useQuizContext();
 
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contain}>
         <View>
-          <Text style={styles.title}>Question {questionI + 1}/5</Text>
+          <Text style={styles.title}>
+            Question {questionI + 1}/{totalQ}
+          </Text>
         </View>
         {question ? (
           <View>
@@ -28,7 +28,9 @@ const MainScrn = () => {
           </View>
         ) : (
           <Card title="Great Job">
-            <Text>Correct: 3/5</Text>
+            <Text>
+              Correct: {score}/{totalQ}
+            </Text>
             <Text>Best Score: 10</Text>
           </Card>
         )}

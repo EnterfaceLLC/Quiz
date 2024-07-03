@@ -1,12 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 
 import MainScrn from "./src/app/MainScrn";
+import QuizProvider from "./src/Provider/QuizProvider";
 
 export default function App() {
   return (
     <>
-      <MainScrn />
+      <QuizProvider>
+        <MainScrn />
+      </QuizProvider>
       <StatusBar style="auto" />
     </>
   );
