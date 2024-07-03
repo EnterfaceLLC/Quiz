@@ -5,14 +5,21 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import questions from "../questions";
 import Card from "../Components/Card";
 import Button from "../Components/Button";
-const question = questions[0];
+import { useState } from "react";
 
 const MainScrn = () => {
+  const [questionI, setQuestionI] = useState(0);
+  const question = questions[questionI];
+
+  const onNext = () => {
+    setQuestionI((currentValue) => currentValue + 1);
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contain}>
         <View>
-          <Text style={styles.title}>Question 1/5</Text>
+          <Text style={styles.title}>Question {questionI + 1}/5</Text>
         </View>
         {question ? (
           <View>
@@ -27,7 +34,7 @@ const MainScrn = () => {
         )}
 
         <Button
-          onPress={() => console.warn("Next Button Pressed")}
+          onPress={onNext}
           onLongPress={() => console.warn("Long Pressed")}
           title={"Next"}
           rightIcon={

@@ -2,16 +2,18 @@ import { View } from "react-native";
 import Answer from "./Answer";
 import { Inquiry } from "../types";
 import Card from "./Card";
+import { useState } from "react";
 
 type QuestionProps = {
   inquiry: Inquiry;
 };
 
 const QuizCard = ({ inquiry }: QuestionProps) => {
-  const selectedOpt = inquiry.options[1];
+  const [selectedOpt, setSelectedOpt] = useState<string | undefined>();
 
   const PressedOpt = (inquiry: string) => {
-    console.warn("Selected:", inquiry);
+    setSelectedOpt(inquiry);
+    console.warn("Selected:", selectedOpt);
   };
 
   return (
