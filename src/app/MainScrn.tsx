@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import QuizCard from "../Components/QuizCard";
 import { FontAwesome6 } from "@expo/vector-icons";
+import party from "../../assets/party.json";
+import LottieView from "lottie-react-native";
 
 // import questions from "../questions";
 import Card from "../Components/Card";
@@ -43,12 +45,20 @@ const MainScrn = () => {
             <Text style={styles.time}>{time}</Text>
           </View>
         ) : (
-          <Card title="Great Job">
-            <Text>
-              Correct: {score}/{totalQ}
-            </Text>
-            <Text>Best Score: {bestScore}</Text>
-          </Card>
+          <>
+            <LottieView
+              source={require("../../assets/party.json")}
+              style={StyleSheet.absoluteFill}
+              autoPlay
+              loop={false}
+            />
+            <Card title="Great Job">
+              <Text>
+                Correct: {score}/{totalQ}
+              </Text>
+              <Text>Best Score: {bestScore}</Text>
+            </Card>
+          </>
         )}
 
         <Button
